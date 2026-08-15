@@ -1,0 +1,9 @@
+# Zmienne środowiskowe (hasła i prywatne dane)
+.env
+
+# Pobrane paczki Node.js (ważą setki megabajtów)
+node_modules/
+
+# Pliki logów i pamięci podręcznej
+*.log
+.DS_Store

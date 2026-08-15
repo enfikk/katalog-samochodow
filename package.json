@@ -1,0 +1,25 @@
+{
+  "name": "katalog-samochodow",
+  "version": "1.0.0",
+  "description": "katalog samochodowy",
+  "homepage": "https://github.com/enfikk/katalog-samochodow#readme",
+  "bugs": {
+    "url": "https://github.com/enfikk/katalog-samochodow/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enfikk/katalog-samochodow.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pg": "^8.23.0"
+  }
+}
