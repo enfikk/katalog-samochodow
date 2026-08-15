@@ -3,36 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>enfik.me</title>
+    <title>Katalog Samochodów</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0d1117;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-        }
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            color: #d87a00;
-        }
-        p {
-            color: #ffee00;
-            font-size: 1.2rem;
-        }
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #f4f4f9; }
+        h1 { color: #333; text-align: center; }
+        .car-card { background: white; border-radius: 8px; padding: 15px 20px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .car-title { font-size: 1.3em; font-weight: bold; color: #111; margin-bottom: 8px; }
+        .car-info { font-size: 0.95em; color: #555; line-height: 1.5; }
+        .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 0.85em; font-weight: bold; margin-top: 5px; }
+        .badge-success { background: #e6f4ea; color: #137333; }
+        .badge-danger { background: #fce8e6; color: #c5221f; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>enfik!</h1>
-        <p>COMMING SOON!</p>
-    </div>
+
+<h1>🚗 Katalog Samochodów</h1>
+<div id="cars-list">Ładowanie samochodów...</div>
+
+<script>
+    async function loadCars() {
+        try {
+            const response = await fetch('/api/cars');
+            const cars = await response.json();
+
+            const container = document.getElementById('cars-list');
+            container.innerHTML = '';
+
+            cars.forEach(car => {
+                const card = document.createElement('div');
+                card.className = 'car-card';
+
+                const statusBadge = car.is_accident_free
+                    ? '<span class="badge badge-success">Bezwypadkowy</span>'
+                    : '<span class="badge badge-danger">Powypadkowy</span>';
+
+                card.innerHTML = `
+            <div class="car-title">${car.brand} ${car.model} (${car.year})</div>
+            <div class="car-info">
+              <strong>Przebieg:</strong> ${car.mileage.toLocaleString()} km <br>
+              <strong>VIN:</strong> <code>${car.vin}</code> <br>${statusBadge}
+            </div>
+          `;
+                container.appendChild(card);
+            });
+        } catch (err) {
+            console.error(err);
+            document.getElementById('cars-list').innerText = 'Błąd podczas ładowania danych.';
+        }
+    }
+
+    loadCars();
+</script>
 </body>
 </html>
